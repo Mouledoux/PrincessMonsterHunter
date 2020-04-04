@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68e643539611f234d843ed21402fb87a, type: 3}
-  m_Name: Foo
+  m_Name: Foo3
   m_EditorClassIdentifier: 
+  value: 3
   onLeftSwipe:
     m_PersistentCalls:
       m_Calls:

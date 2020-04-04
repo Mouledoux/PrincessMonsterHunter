@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSwipeObjecr", menuName = "ScriptableObjects/SwipeObject", order = 1)]
 public class SwipeObject : ScriptableObject
 {
+    public float value;
+
     public UnityEngine.Events.UnityEvent onLeftSwipe;
     public UnityEngine.Events.UnityEvent onLeftRelease;
 
