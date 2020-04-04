@@ -392,15 +392,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d319494894f52b14d94c7531e12a6ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  index: 1
   cardPrefab: {fileID: 5600106422627233768, guid: 3c74e1325c475d54aac9295c1ebfbc2f,
     type: 3}
   cardSpawnPos: {fileID: 1122355401}
   deck:
-  - {fileID: 11400000, guid: c81b1ce4f72e88244bc9b2ff5192b56a, type: 2}
-  - {fileID: 11400000, guid: d60ffa08cc6fb714080bae03899d29dc, type: 2}
-  - {fileID: 11400000, guid: 8839a18cb81303f408b5153154068f26, type: 2}
-  - {fileID: 11400000, guid: 05835d75dd96af542947c377394b134a, type: 2}
+  - {fileID: 11400000, guid: 3f869ad9529844840a2dcccd65faeec5, type: 2}
+  - {fileID: 11400000, guid: 6bec8500ac8a72444b2871924ec1df20, type: 2}
+  - {fileID: 11400000, guid: c105339074474824c819f308b98da739, type: 2}
+  - {fileID: 11400000, guid: e9ab0abe401f58c449a41e4365ea6158, type: 2}
+  - {fileID: 11400000, guid: 8f4394bbdb782b34c9191a57f56aa239, type: 2}
+  - {fileID: 11400000, guid: eb60acc61095c924f8d40f1957c9764f, type: 2}
+  - {fileID: 11400000, guid: d051e675992dc5e47b4e122d3f0b2449, type: 2}
+  - {fileID: 11400000, guid: 1d1a9b9914d4acb4982d07ae51d8d2c1, type: 2}
+  - {fileID: 11400000, guid: 3e0a066197c9c0346a7a2edd95591921, type: 2}
+  - {fileID: 11400000, guid: 8c83225c149d8534cb7e6cd362ce98ad, type: 2}
 --- !u!4 &424545080
 Transform:
   m_ObjectHideFlags: 0
@@ -621,6 +627,7 @@ GameObject:
   - component: {fileID: 1713940033}
   - component: {fileID: 1713940032}
   - component: {fileID: 1713940031}
+  - component: {fileID: 1713940034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -693,6 +700,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1713940034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713940030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_CameraOutput: 0
+  m_Cameras: []
+  m_RendererIndex: 0
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1819784996
 GameObject:
   m_ObjectHideFlags: 0

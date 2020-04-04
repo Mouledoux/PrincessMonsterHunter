@@ -5,9 +5,8 @@ using UnityEngine;
 public class SwipeCard : MonoBehaviour
 {
     public SwipeObject cardData;
-
     public TMPro.TextMeshPro cardText;
-
+    public SpriteRenderer profilePicture;
 
 
     private float deadZone = 50f;
@@ -70,17 +69,21 @@ public class SwipeCard : MonoBehaviour
         onLeftSwipe = () => cardData.onLeftSwipe.Invoke();
         onLeftSwipe += () => targetPos = Vector3.right * -1f;
 
-        System.Action onLeftRelease;
-        onLeftRelease = () => cardData.onLeftRelease.Invoke();
-        onLeftRelease += () => targetPos = Vector3.right * -16f;
-
         System.Action onRightSwipe;
         onRightSwipe = () => cardData.onRightSwipe.Invoke();
         onRightSwipe += () => targetPos = Vector3.right * 1f;
+        
+
+        System.Action onLeftRelease;
+        onLeftRelease = () => cardData.onLeftRelease.Invoke();
+        onLeftRelease += () => targetPos = Vector3.right * -16f;
+        onLeftRelease += () => cardData.SelfDestruct(gameObject);
 
         System.Action onRightRelease;
         onRightRelease = () => cardData.onRightRelease.Invoke();
         onRightRelease += () => targetPos = Vector3.right * 16f;
+        onRightRelease += () => cardData.RemoveCard();
+        onRightRelease += () => cardData.SelfDestruct(gameObject);
 
 
 
@@ -98,7 +101,8 @@ public class SwipeCard : MonoBehaviour
 
     public void Initialize()
     {
-        cardText.text = cardData.value.ToString();
+        cardText.text = cardData.cardName;
+        profilePicture.sprite = cardData.monsterImage;
     }
 
     private void Update()
