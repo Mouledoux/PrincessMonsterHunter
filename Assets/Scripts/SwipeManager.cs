@@ -31,6 +31,7 @@ public class SwipeManager : MonoBehaviour
 
         System.Func<bool>[] leftSwipePrereq =
         {
+            IsHolding,
             IsSwipingLeft,
         };
         System.Func<bool>[] leftReleasePrereq =
@@ -41,6 +42,7 @@ public class SwipeManager : MonoBehaviour
 
         System.Func<bool>[] rightSwipePrereq =
         {
+            IsHolding,
             IsSwipingRight,
         };
         System.Func<bool>[] rightReleasePrereq =
@@ -50,23 +52,33 @@ public class SwipeManager : MonoBehaviour
         };
 
 
+        System.Action onHold;
+        onHold = () => targetPos = Vector3.zero;
+        onHold += () => print("hold");
+
+
         System.Action onLeftSwipe;
         onLeftSwipe = () => activeCard.cardEvents.onLeftSwipe.Invoke();
-        onLeftSwipe += () => targetPos = -Vector3.right;
+        onLeftSwipe += () => targetPos = Vector3.right * -1f;
 
         System.Action onLeftRelease;
         onLeftRelease = () => activeCard.cardEvents.onLeftRelease.Invoke();
+        onLeftRelease += () => targetPos = Vector3.right * -16f;
+        onLeftRelease += () => Destroy(activeCard.gameObject, 1f);
 
         System.Action onRightSwipe;
         onRightSwipe = () => activeCard.cardEvents.onRightSwipe.Invoke();
-        onRightSwipe += () => targetPos = Vector3.right;
+        onRightSwipe += () => targetPos = Vector3.right * 1f;
 
-        System.Action onRightRelease = () => activeCard.cardEvents.onRightRelease.Invoke();
+        System.Action onRightRelease;
+        onRightRelease = () => activeCard.cardEvents.onRightRelease.Invoke();
+        onRightRelease += () => targetPos = Vector3.right * 16f;
+        onRightRelease += () => Destroy(activeCard.gameObject, 1f);
 
 
 
         StateMachine.AddTransition(ESwipeState.INIT, ESwipeState.IDLE, emptyPrereq, () => print("idle"));
-        StateMachine.AddTransition(ESwipeState.ANY, ESwipeState.HOLDING, holdingPrereq, () => print("holding"));
+        StateMachine.AddTransition(ESwipeState.ANY, ESwipeState.HOLDING, holdingPrereq, onHold);
 
         StateMachine.AddTransition(ESwipeState.HOLDING, ESwipeState.LEFT_SWIPE, leftSwipePrereq, onLeftSwipe);
         StateMachine.AddTransition(ESwipeState.HOLDING, ESwipeState.RIGHT_SWIPE, rightSwipePrereq, onRightSwipe);
@@ -78,9 +90,9 @@ public class SwipeManager : MonoBehaviour
 
     void Update()
     {
-        lastClickPos = Input.GetMouseButtonDown(0) ? Input.mousePosition : lastClickPos;
-        print(lastClickPos);
+        if(activeCard == null) return;
 
+        lastClickPos = Input.GetMouseButtonDown(0) ? Input.mousePosition : lastClickPos;
         StateMachine.Update();
         UpdateActiveCardPosition();
     }
@@ -92,12 +104,12 @@ public class SwipeManager : MonoBehaviour
 
     private bool IsSwipingLeft()
     {
-        return (Input.GetMouseButton(0)) && (lastClickPos.x - Input.mousePosition.x > deadZone);
+        return (lastClickPos.x - Input.mousePosition.x > deadZone);
     }    
     
     private bool IsSwipingRight()
     {
-        return (Input.GetMouseButton(0)) && (Input.mousePosition.x - lastClickPos.x > deadZone);
+        return (Input.mousePosition.x - lastClickPos.x > deadZone);
     }
 
     private void UpdateActiveCardPosition()
