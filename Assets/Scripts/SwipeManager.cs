@@ -22,6 +22,12 @@ public class SwipeManager : MonoBehaviour
         System.Func<bool>[] emptyPrereq = {};
         System.Action emptyAction = () => {};
 
+
+        System.Func<bool>[] idlePrereq =
+        {
+           () => { return !IsHolding(); },
+        };
+
         System.Func<bool>[] holdingPrereq =
         {
            IsHolding,
@@ -51,11 +57,12 @@ public class SwipeManager : MonoBehaviour
             () => { return !IsHolding(); }
         };
 
+        System.Action onIdle;
+        onIdle = () => print("idle");
 
         System.Action onHold;
         onHold = () => targetPos = Vector3.zero;
         onHold += () => print("hold");
-
 
         System.Action onLeftSwipe;
         onLeftSwipe = () => activeCard.cardEvents.onLeftSwipe.Invoke();
@@ -77,8 +84,10 @@ public class SwipeManager : MonoBehaviour
 
 
 
-        StateMachine.AddTransition(ESwipeState.INIT, ESwipeState.IDLE, emptyPrereq, () => print("idle"));
+        StateMachine.AddTransition(ESwipeState.INIT, ESwipeState.IDLE, emptyPrereq, onIdle);
+
         StateMachine.AddTransition(ESwipeState.ANY, ESwipeState.HOLDING, holdingPrereq, onHold);
+        StateMachine.AddTransition(ESwipeState.HOLDING, ESwipeState.IDLE, idlePrereq, onIdle);
 
         StateMachine.AddTransition(ESwipeState.HOLDING, ESwipeState.LEFT_SWIPE, leftSwipePrereq, onLeftSwipe);
         StateMachine.AddTransition(ESwipeState.HOLDING, ESwipeState.RIGHT_SWIPE, rightSwipePrereq, onRightSwipe);
