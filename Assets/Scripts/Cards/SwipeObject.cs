@@ -26,6 +26,6 @@ public class SwipeObject : ScriptableObject
 
     public void SelfDestruct(GameObject go)
     {
-        Destroy(go, 1f);
+        Destroy(go, 0.2f);
     }
 }

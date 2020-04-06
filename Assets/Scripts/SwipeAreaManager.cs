@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SwipeAreaManager : MonoBehaviour
 {
-
     public SwipeCard activeCard;
 
     private Mouledoux.Components.Mediator.Subscriptions subscriptions =

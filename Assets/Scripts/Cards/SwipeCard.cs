@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwipeCard : MonoBehaviour
 {
     public SwipeObject cardData;
+    public Transform selectedtarget;
     public TMPro.TextMeshPro cardText;
     public SpriteRenderer profilePicture;
 
@@ -65,6 +66,7 @@ public class SwipeCard : MonoBehaviour
         onHold = () => targetPos = Vector3.zero;
         onHold += () => print("hold");
 
+
         System.Action onLeftSwipe;
         onLeftSwipe = () => cardData.onLeftSwipe.Invoke();
         onLeftSwipe += () => targetPos = Vector3.right * -1f;
@@ -81,9 +83,9 @@ public class SwipeCard : MonoBehaviour
 
         System.Action onRightRelease;
         onRightRelease = () => cardData.onRightRelease.Invoke();
-        onRightRelease += () => targetPos = Vector3.right * 16f;
+        onRightRelease += () => targetPos = selectedtarget.position;
         onRightRelease += () => cardData.RemoveCard();
-        onRightRelease += () => cardData.SelfDestruct(gameObject);
+        //onRightRelease += () => cardData.SelfDestruct(gameObject);
 
 
 
@@ -107,7 +109,6 @@ public class SwipeCard : MonoBehaviour
 
     private void Update()
     {
-
         lastClickPos = Input.GetMouseButtonDown(0) ? Input.mousePosition : lastClickPos;
         StateMachine.Update();
         UpdateActiveCardPosition();
